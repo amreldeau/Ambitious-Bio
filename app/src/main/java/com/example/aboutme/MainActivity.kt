@@ -29,12 +29,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun addNickname(view: View) {
 
-        binding.nicknameText.text = binding.nicknameEdit.text
+        binding.apply {
+            nicknameText.text = binding.nicknameEdit.text
 
-        // Make EditText and Button disappear, TextView appear
-        binding.nicknameEdit.visibility = View.GONE
-        binding.doneButton.visibility = View.GONE
-        binding.nicknameText.visibility = View.VISIBLE
+            // In order to refresh the UI with the new data, we need to invalidate all binding expressions so that they get recreated with the correct data
+            invalidateAll()
+
+            //Make EditText and Button disappear, TextView appear
+            nicknameEdit.visibility = View.GONE
+            doneButton.visibility = View.GONE
+            nicknameText.visibility = View.VISIBLE
+        }
 
         //Hide the keyboard
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
