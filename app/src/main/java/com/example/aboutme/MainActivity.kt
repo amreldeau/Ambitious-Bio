@@ -13,15 +13,21 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    // Create an instance of Data class and set the name
+    private val myName: MyName = MyName("Yeldos Amire")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Set the app to always be displayed in daylight mode
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-        //instruction to create the binding object with all the magic that connects the layout with the activity (the line below replaces setContentView method)
+        // Instruction to create the binding object with all the magic that connects the layout with the activity (the line below replaces setContentView method)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        // Accessing the done button through to binding object
+        // Set the value of myName variable that is declared and used in a layout file
+        binding.myName = myName
+
+        // Access the done button through to binding object
         binding.doneButton.setOnClickListener {
             addNickname(it)
         }
@@ -30,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     private fun addNickname(view: View) {
 
         binding.apply {
-            nicknameText.text = binding.nicknameEdit.text
+            myName?.nickname = nicknameEdit.text.toString()
 
             // In order to refresh the UI with the new data, we need to invalidate all binding expressions so that they get recreated with the correct data
             invalidateAll()
